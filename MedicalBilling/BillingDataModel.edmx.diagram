@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7d5afc50baad41f38c267e912d748ab5" Name="Diagram1">
+        <EntityTypeShape EntityType="BillingModel.Customer" Width="1.5" PointX="3" PointY="11.375" />
+        <EntityTypeShape EntityType="BillingModel.Gender" Width="1.5" PointX="0.75" PointY="12.625" />
+        <EntityTypeShape EntityType="BillingModel.Inventory" Width="1.5" PointX="5.25" PointY="1.375" />
+        <EntityTypeShape EntityType="BillingModel.Invoice" Width="1.5" PointX="5.25" PointY="10.375" />
+        <EntityTypeShape EntityType="BillingModel.InvoiceItem" Width="1.5" PointX="7.5" PointY="1.375" />
+        <EntityTypeShape EntityType="BillingModel.Manufacturer" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="BillingModel.Product" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="BillingModel.Status" Width="1.5" PointX="3" PointY="5.875" />
+        <EntityTypeShape EntityType="BillingModel.sysdiagram" Width="1.5" PointX="5.75" PointY="5.75" />
+        <EntityTypeShape EntityType="BillingModel.Type" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="BillingModel.User" Width="1.5" PointX="3" PointY="8.5" />
+        <AssociationConnector Association="BillingModel.FK_Customer_Gender" />
+        <AssociationConnector Association="BillingModel.FK_Invoice_Customer" />
+        <AssociationConnector Association="BillingModel.FK_Inventory_Product" />
+        <AssociationConnector Association="BillingModel.FK_Inventory_Status" />
+        <AssociationConnector Association="BillingModel.FK_InvoiceItem_Inventory" />
+        <AssociationConnector Association="BillingModel.FK_Invoice_Status" />
+        <AssociationConnector Association="BillingModel.FK_Invoice_User" />
+        <AssociationConnector Association="BillingModel.FK_InvoiceItem_Invoice" />
+        <AssociationConnector Association="BillingModel.FK_InvoiceItem_Product" />
+        <AssociationConnector Association="BillingModel.FK_Product_Manufacturer" />
+        <AssociationConnector Association="BillingModel.FK_Product_Type" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,58 @@
+﻿@model MedicalBilling.Inventory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Inventory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.exDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.exDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.batchNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.batchNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status1.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status1.description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.iid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
