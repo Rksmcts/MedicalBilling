@@ -1,4 +1,4 @@
-﻿@model MedicalBilling.Invoice
+﻿@model MedicalBilling.ViewModel.BillingViewModel
 
 <table class="table">
     <thead>
@@ -14,7 +14,7 @@
         @foreach (InvoiceItem item in Model.InvoiceItems)
         {
             <tr>
-                <td>"1"</td>
+                <td>1</td>
                 <td>@item.pid</td>
                 <td>@item.iid</td>
                 <td>@item.quantity</td>

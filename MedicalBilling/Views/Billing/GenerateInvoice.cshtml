@@ -1,4 +1,4 @@
-﻿@model MedicalBilling.Invoice
+﻿@model MedicalBilling.ViewModel.BillingViewModel
 
 @{
     ViewBag.Title = "GenerateInvoice";
@@ -10,18 +10,18 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <span>Invoice ID:@Model.id</span>
+            <span>Invoice ID:@Model.Invoice.id</span>
         </div>
         <div class="col-md-4">
-            <span>Created :@Model.date</span>
+            <span>Created :@Model.Invoice.date</span>
         </div>
         <div class="col-md-4">
-            <span>Due Date :@Model.dueDate</span>
+            <span>Due Date :@Model.Invoice.dueDate</span>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
-            <span>Status:@Model.status</span>
+            <span>Status:@Model.Invoice.status</span>
         </div>
     </div>
 
@@ -30,10 +30,64 @@
 </div>
 
 <script type="text/javascript">
-$(document).ready(function () {
-//$('#btn').click(function () {
-    $('#currentItem').load('/Billing/GetCurrentItem/@Model.id');
-//});
-});
+    $(document).ready(function () {
+        //Render partial view _InvoiceCurrentItem
+        $.ajax({
+            url: '/Billing/GetCurrentItem/@Model.Invoice.id',
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html'
+
+        })
+                .success(function (result) {
+                    $('#currentItem').show();
+                    $('#currentItem').html(result);
+                })
+                .error(function (xhr, status) {
+                    alert(status);
+                })
+        //Render partial view _InvoiceCurrentItem
+        $.ajax({
+            url: '/Billing/AddItem/@Model.Invoice.id',
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html'
+
+        })
+                .success(function (result) {
+                    $('#addItem').show();
+                    $('#addItem').html(result);
+                })
+                .error(function (xhr, status) {
+                    alert(status);
+                })
+
+        @*$('form').submit(function () {
+            var invID=@{ @Model.id}
+            $.ajax({
+                url: '/Billing/GetCurrentItem/@Model.id',
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: {
+
+                    invoiceID: invID,
+                    pid: $('#pid').val(),
+                    iid: $('#iid').val(),
+                    quantity: $('#quantity').val(),
+                    free: $('#free').val()
+                },
+                success: function (result) {
+
+                    alert("success " + result.UserName);
+                },
+                error: function (result) {
+                    alert("Failed");
+                }
+
+            });
+            return false;
+        });*@
+    });
 
 </script>

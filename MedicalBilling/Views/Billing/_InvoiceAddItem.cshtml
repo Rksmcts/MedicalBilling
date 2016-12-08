@@ -1,1 +1,78 @@
-﻿
+﻿@model MedicalBilling.ViewModel.BillingViewModel
+
+@using (Html.BeginForm())
+{
+    <p>Add new item</p>
+    <div class="container">
+        <form>
+            <input type="hidden" value=ViewBag.id name="Invoice.id" />
+            <div class="form-group">
+                @Html.Label("Product", new { @class = "col-md-2" })
+                @Html.DropDownListFor(x => x.Product.pid, new SelectList(Model.Products, "pid", "name"),
+               "Select Product",new { @onchange="fillInventory()",id="productID"})
+            </div>
+            <div class="form-group">
+                @Html.Label("InventoryID", new { @class = "col-md-2" })
+                @*@Html.DropDownListFor(x => x.Inventory.iid, new SelectList(Model.Inventories, "iid", "iid"))*@
+                <select name="Inventory.iid" id="Inventoryiid" onchange="setQuantity();"></select>
+            </div>
+            <div class="form-group">
+                @Html.Label("Quantity", new { @class = "col-md-2" })
+                <input type="number" name="InvoiceItem.quantity" id="quantity" min="0" max="0">
+            </div>
+            <div class="form-group">
+                @Html.Label("Free", new { @class = "col-md-2" })
+                <input type="number" name="InvoiceItem.free" id="free" min="0" max="0">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+}
+<script type="text/javascript">
+    function fillInventory() {
+        var productId = $('#productID').val(); 
+        $.ajax({
+            url: '/Billing/FillInventory/'+productId,
+            type: "GET",
+            dataType: "JSON",
+            //data: { id: productId },
+            success: function (inventories) {
+                
+                inv = inventories;
+                $("#Inventoryiid").html("");
+                $.each(inventories, function (i, item) {
+                    
+                    $('#Inventoryiid').append($('<option>', {
+                        value: item.iid,
+                        text: item.batchNo
+                    }));
+                });
+                debugger
+                $('#Inventoryiid').val(inv.iid);
+                setQuantity();
+            }
+        });
+    }
+
+    function setQuantity()
+    {
+        debugger
+        $("#quantity").val(0);
+        $("#free").val(0);
+        var iid = $('#Inventoryiid').val();
+        $.each(inv, function (i, v) {debugger
+            if (v.iid == iid) {
+                max = v.quantity;
+                $("#quantity").attr({
+                    "max": max,        
+                    "min": 1        
+                });
+                $("#free").attr({
+                    "max": max,
+                    "min": 0
+                });
+            }
+        });
+    }
+
+</script>
