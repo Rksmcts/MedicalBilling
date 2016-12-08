@@ -1,0 +1,39 @@
+﻿@model MedicalBilling.Invoice
+
+@{
+    ViewBag.Title = "GenerateInvoice";
+    Layout = "~/Views/Shared/_LayoutBilling.cshtml";
+}
+
+<h2>GenerateInvoice</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <span>Invoice ID:@Model.id</span>
+        </div>
+        <div class="col-md-4">
+            <span>Created :@Model.date</span>
+        </div>
+        <div class="col-md-4">
+            <span>Due Date :@Model.dueDate</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <span>Status:@Model.status</span>
+        </div>
+    </div>
+
+    <div id="currentItem"></div>
+    <div id="addItem"></div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+//$('#btn').click(function () {
+    $('#currentItem').load('/Billing/GetCurrentItem/@Model.id');
+//});
+});
+
+</script>

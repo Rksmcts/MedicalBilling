@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "GenerateInvoice";
+    Layout = "~/Views/Shared/_LayoutBilling.cshtml";
+}
+
+<h2>GenerateInvoice</h2>
+
+@Ajax.ActionLink(
+    "Generate New Invoice",
+    "GenerateNewInvoice",
+    "Billing",
+    null,
+    new AjaxOptions
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "GenerateNewInvoice",
+        OnBegin = "myonbegin",
+        OnSuccess = "myonsuccess",
+        OnComplete = "myoncomplete",
+        OnFailure = "myonfailure"
+    },
+    new { @class = "btn btn-default" }
+)
+<div id="GenerateNewInvoice">
+    <img id="animatedgif" src="~/Content/Images/loading.gif" />
+    original text
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#animatedgif").hide();
+        });
+        function myonbegin() {
+            //show animated gif
+            //alert("helloworld");
+            $("#animatedgif").show();
+        }
+        function myonsuccess() {
+            //disable animated gif
+            $("#animatedgif").hide();
+        }
+        function myonfailure() {
+            //disbale animated gif
+            $("#animatedgif").hide();
+        }
+        function myoncomplete() {
+            //disable animated gif
+            $("#animatedgif").hide();
+        }
+    </script>
+}

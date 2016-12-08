@@ -34,8 +34,8 @@
                 <br /><br />
                 <div class="list-group" style="text-align:center;">
                     <a href="#" class="list-group-item active">Select</a>
-                    <a href="/Billing/Index" class="list-group-item">Generate Invoice</a>
-                    <a href="/Billing/View" class="list-group-item">View Invoice</a>
+                    <a href="/Billing/GenerateNewInvoice" class="list-group-item">Generate Invoice</a>
+                    <a href="/Billing/ViewInvoice" class="list-group-item">View Invoice</a>
                 </div>
             </div>
             <div class="col-md-10">
@@ -51,5 +51,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </body>
 </html>

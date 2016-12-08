@@ -12,6 +12,8 @@ namespace MedicalBilling
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class BillingEntities : DbContext
     {
@@ -36,5 +38,10 @@ namespace MedicalBilling
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Type> Types { get; set; }
         public virtual DbSet<User> Users { get; set; }
+    
+        public virtual ObjectResult<Nullable<int>> Invoice_IdMax()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Invoice_IdMax");
+        }
     }
 }

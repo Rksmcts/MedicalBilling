@@ -234,6 +234,7 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\loading.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -254,6 +255,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -314,7 +317,13 @@
     <Content Include="Views\Invoices\Index.cshtml" />
     <Content Include="Views\Billing\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutBilling.cshtml" />
-    <Content Include="Views\Billing\View.cshtml" />
+    <Content Include="Views\Billing\GenerateNewInvoice.cshtml" />
+    <Content Include="Views\Billing\ViewInvoice.cshtml" />
+    <Content Include="Views\Billing\_GenerateNewInvoice.cshtml" />
+    <Content Include="Views\Billing\tmpGenerateInvoice.cshtml" />
+    <Content Include="Views\Billing\GenerateInvoice.cshtml" />
+    <Content Include="Views\Billing\_InvoiceCurrentItem.cshtml" />
+    <Content Include="Views\Billing\_InvoiceAddItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

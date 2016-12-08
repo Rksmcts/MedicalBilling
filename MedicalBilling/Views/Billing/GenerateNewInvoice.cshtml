@@ -1,0 +1,25 @@
+﻿@model MedicalBilling.Invoice
+
+@{
+    ViewBag.Title = "GenerateInvoice";
+    Layout = "~/Views/Shared/_LayoutBilling.cshtml";
+}
+
+<h2>GenerateInvoice</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <form>
+            <div class="form-group">
+                @Html.Label("Customer", new { @class = "col-md-2" })
+                @Html.DropDownListFor(x=>x.cid, new SelectList(ViewBag.Customers, "cid", "fname"))
+            </div>
+            <div class="form-group">
+                @Html.Label("Due Date", new { @class = "col-md-2" })
+                <input type="date" name="dueDate">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+}

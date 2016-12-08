@@ -249,6 +249,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Invoice_IdMax" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="BillingModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
@@ -366,6 +367,7 @@
             <End Role="Type" EntitySet="Types" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <FunctionImport Name="Invoice_IdMax" ReturnType="Collection(Int32)" />
         </EntityContainer>
         <EntityType Name="Customer">
           <Key>
@@ -762,6 +764,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Invoice_IdMax" FunctionName="BillingModel.Store.Invoice_IdMax" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
