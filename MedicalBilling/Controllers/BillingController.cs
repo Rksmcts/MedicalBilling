@@ -56,6 +56,16 @@ namespace MedicalBilling.Controllers
         {
             BillingViewModel mdl = new BillingViewModel();
             ICollection<InvoiceItem> InvoiceItems= db.InvoiceItems.Where(x => x.invoiceId == id).ToList();
+            List<InvoiceItemWithPrice> InvoiceItemWithPrice = new List<InvoiceItemWithPrice>();
+            foreach (InvoiceItem i in InvoiceItems)
+            {
+                InvoiceItemWithPrice item = new InvoiceItemWithPrice();
+                item.InvoiceItem = i;
+                item.mrp =(decimal) db.Products.Where(x => x.pid == i.pid).Select(x=>x.mrp).First();
+                item.vat = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.vat).First();
+                item.discount = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.discount).First();
+                item.price = (decimal)item.mrp * (item.vat / 100) * (item.discount / 100);
+            }
             mdl.InvoiceItems = InvoiceItems;
             //mdl.Invoice.id = id;
             //Invoice i = new Invoice();
@@ -66,10 +76,27 @@ namespace MedicalBilling.Controllers
         public ActionResult AddItem(int id)
         {
             BillingViewModel mdl= new BillingViewModel();
-            ViewBag.id = id;
+            mdl.Invoice.id = id;
             mdl.Products = db.Products.ToList();
             mdl.Inventories = db.Inventories.ToList();
             return PartialView("_InvoiceAddItem",mdl);
+        }
+
+        [HttpPost]
+        public RedirectToRouteResult AddItem(BillingViewModel mdl)
+        {
+            InvoiceItem i = new InvoiceItem();
+            int? id = db.InvoiceItem_IdMax().First();
+            i.id = (int) id +1;
+            i.invoiceId = mdl.InvoiceItem.invoiceId;
+            i.pid = mdl.Product.pid;
+            i.iid = mdl.Inventory.iid;
+            i.quantity = mdl.InvoiceItem.quantity;
+            i.free = mdl.InvoiceItem.free;
+            db.InvoiceItems.Add(i);
+            db.SaveChanges();
+            //return PartialView("_InvoiceAddItem", mdl);
+            return RedirectToAction("GenerateInvoice",new { id= mdl.InvoiceItem.invoiceId });
         }
 
         //Generate_Invoice_END

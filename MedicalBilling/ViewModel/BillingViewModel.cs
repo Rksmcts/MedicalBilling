@@ -19,10 +19,14 @@ namespace MedicalBilling.ViewModel
         //public virtual User User { get; set; }
         //public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }
 
-        public Invoice Invoice { get; set; }
+        public Invoice Invoice { get; set; } = new Invoice();   
 
         //additional items
         public virtual InvoiceItem InvoiceItem { get; set; }
+
+        public virtual InvoiceItemWithPrice InvoiceItemWithPrice { get; set; }
+
+        public int price { get; set; }
 
         public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }
         public virtual Product Product { get; set; }
@@ -33,4 +37,14 @@ namespace MedicalBilling.ViewModel
         public virtual ICollection<Inventory> Inventories { get; set; }
 
     }
+
+    public class InvoiceItemWithPrice
+    {
+        public InvoiceItem InvoiceItem;
+        public decimal mrp;
+        public decimal vat;
+        public decimal discount;
+        public decimal price;
+    }
+
 }

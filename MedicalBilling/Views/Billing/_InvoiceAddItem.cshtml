@@ -1,11 +1,11 @@
 ﻿@model MedicalBilling.ViewModel.BillingViewModel
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("AddItem","Billing",FormMethod.Post))
 {
     <p>Add new item</p>
     <div class="container">
         <form>
-            <input type="hidden" value=ViewBag.id name="Invoice.id" />
+            <input value=@Model.Invoice.id name="InvoiceItem.invoiceId" style="display:none"/>
             <div class="form-group">
                 @Html.Label("Product", new { @class = "col-md-2" })
                 @Html.DropDownListFor(x => x.Product.pid, new SelectList(Model.Products, "pid", "name"),

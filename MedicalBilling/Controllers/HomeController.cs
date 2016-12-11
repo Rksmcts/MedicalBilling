@@ -26,5 +26,9 @@ namespace MedicalBilling.Controllers
 
             return View();
         }
+        public ActionResult AdminPanelIndex()
+        {
+            return View();
+        }
     }
 }

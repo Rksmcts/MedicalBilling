@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Inventory</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info" })
 </p>
 <table class="table">
     <tr>
@@ -47,9 +47,9 @@
             @Html.DisplayFor(modelItem => item.Status1.description)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.iid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.iid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.iid })
+            @Html.ActionLink("Edit", "Edit", new { id=item.iid }, new { @class = "btn btn-warning btn-sm" })@* |
+    @Html.ActionLink("Details", "Details", new { id=item.iid }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id=item.iid }, new { @class = "btn btn-danger btn-sm" })
         </td>
     </tr>
 }

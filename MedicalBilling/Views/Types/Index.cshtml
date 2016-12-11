@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_LayoutAdminPanel.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Types</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info" })
 </p>
 <table class="table">
     <tr>
@@ -24,9 +24,9 @@
             @Html.DisplayFor(modelItem => item.name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.tid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.tid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.tid })
+            @Html.ActionLink("Edit", "Edit", new { id=item.tid }, new { @class = "btn btn-warning btn-sm" })@* |
+    @Html.ActionLink("Details", "Details", new { id=item.tid }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id=item.tid }, new { @class = "btn btn-danger btn-sm" })
         </td>
     </tr>
 }

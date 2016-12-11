@@ -43,5 +43,10 @@ namespace MedicalBilling
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Invoice_IdMax");
         }
+    
+        public virtual ObjectResult<Nullable<int>> InvoiceItem_IdMax()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InvoiceItem_IdMax");
+        }
     }
 }
