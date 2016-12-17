@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MedicalBilling.ViewModel;
+using MedicalBilling.Helpers;
 using System.Web.Script.Serialization;
 
 namespace MedicalBilling.Controllers
@@ -34,7 +35,8 @@ namespace MedicalBilling.Controllers
             mdl.status = 11;
             db.Invoices.Add(mdl);
             db.SaveChanges();
-            return View("GenerateInvoice", mdl);
+            return RedirectToAction("GenerateInvoice", new { id = mdl.id });
+            //return View("GenerateInvoice", mdl);
         }
         //Generate_New_Invoice_END
 
@@ -52,21 +54,35 @@ namespace MedicalBilling.Controllers
             return View("GenerateInvoice");
         }
 
+        public ActionResult PrintInvoice(int id)
+        {
+            BillingViewModel mdl = new BillingViewModel();
+            InvoicePrintHelper hlp = new InvoicePrintHelper();
+            mdl = hlp.getData(id);
+            return View("PrintInvoice", mdl);
+        }
         public ActionResult GetCurrentItem(int id)
         {
             BillingViewModel mdl = new BillingViewModel();
             ICollection<InvoiceItem> InvoiceItems= db.InvoiceItems.Where(x => x.invoiceId == id).ToList();
             List<InvoiceItemWithPrice> InvoiceItemWithPrice = new List<InvoiceItemWithPrice>();
+            
             foreach (InvoiceItem i in InvoiceItems)
             {
                 InvoiceItemWithPrice item = new InvoiceItemWithPrice();
                 item.InvoiceItem = i;
+                //item.InvoiceItem.Product.name = db.Products.Where(x => x.pid == i.pid).Select(x => x.name).First();
+                //item.InvoiceItem.Inventory.batchNo = db.Inventories.Where(x => x.iid == i.iid).Select(x => x.batchNo).First();
                 item.mrp =(decimal) db.Products.Where(x => x.pid == i.pid).Select(x=>x.mrp).First();
                 item.vat = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.vat).First();
                 item.discount = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.discount).First();
-                item.price = (decimal)item.mrp * (item.vat / 100) * (item.discount / 100);
+                decimal afterVat = (decimal)item.mrp - (((item.vat / 100)) * item.mrp);
+                decimal afterDiscount= (decimal)(afterVat - (((item.vat / 100)) * afterVat))*(decimal)(item.InvoiceItem.quantity-item.InvoiceItem.free);
+                //item.price = (decimal)item.mrp * (item.vat / 100) * (item.discount / 100);
+                item.price = afterDiscount;
+                InvoiceItemWithPrice.Add(item);
             }
-            mdl.InvoiceItems = InvoiceItems;
+            mdl.InvoiceItemsWithPrice = InvoiceItemWithPrice;
             //mdl.Invoice.id = id;
             //Invoice i = new Invoice();
             //i.InvoiceItems = db.InvoiceItems.Where(x => x.invoiceId == id).ToList();
@@ -94,6 +110,8 @@ namespace MedicalBilling.Controllers
             i.quantity = mdl.InvoiceItem.quantity;
             i.free = mdl.InvoiceItem.free;
             db.InvoiceItems.Add(i);
+            Inventory inv = db.Inventories.SingleOrDefault(x => x.iid == i.iid);
+            inv.quantity -= (i.quantity+i.free);
             db.SaveChanges();
             //return PartialView("_InvoiceAddItem", mdl);
             return RedirectToAction("GenerateInvoice",new { id= mdl.InvoiceItem.invoiceId });

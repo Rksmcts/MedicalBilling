@@ -23,8 +23,8 @@ namespace MedicalBilling
         public int id { get; set; }
         public Nullable<int> cid { get; set; }
         public Nullable<int> uid { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
-        public Nullable<System.DateTime> dueDate { get; set; }
+        public System.DateTime date { get; set; }//orig:nullable
+        public System.DateTime dueDate { get; set; }//orig:nullable
         public Nullable<int> status { get; set; }
     
         public virtual Customer Customer { get; set; }

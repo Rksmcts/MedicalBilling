@@ -8,6 +8,9 @@
 <h2>GenerateInvoice</h2>
 
 <div class="container">
+    <div class="row" style="text-align:right">
+        @Html.ActionLink("Print", "PrintInvoice",new{ id= Model.Invoice.id }, new { @class = "btn btn-default", target = "_blank" })
+    </div>
     <div class="row">
         <div class="col-md-4">
             <span>Invoice ID:@Model.Invoice.id</span>

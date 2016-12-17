@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="all"/>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/printStyle.css" rel="stylesheet" />
+    <style>
+        body {
+  -webkit-print-color-adjust: exact;
+}
+        @@media print {
+
+.ltBlue{background-color:#d4ebf2;}
+
+}
+.mycontent-left {
+  border-left: 2px solid #333;
+}
+    </style>
+</head>
+<body style="background-color:#d4ebf2;">
+    @{
+        Layout = null; 
+    }
+    @model MedicalBilling.ViewModel.BillingViewModel
+
+    <div class="container ltBlue">
+        <div class="row" >
+            <h3 style="text-align:center">INVOICE</h3>
+        </div>
+        <table class="table table-striped ltBlue">
+            <tr>
+                <th class="col-xs-4">
+                    @Model.InvoicePrint.fromName<br />
+                    @Model.InvoicePrint.fromAddress<br />
+                    Phone: @Model.InvoicePrint.fromPhone<br />
+                    D.L. No.: @Model.InvoicePrint.fromDL_No<br />
+                    TIN No.: @Model.InvoicePrint.fromTIN_No<br />
+                </th>
+                <th class="col-xs-4">
+                    To, @Model.InvoicePrint.toName<br />
+                    @Model.InvoicePrint.toAddress<br />
+                    Phone: @Model.InvoicePrint.toPhone<br />
+                    D.L. No.: @Model.InvoicePrint.toDL_No<br />
+                    TIN No.: @Model.InvoicePrint.toTIN_No<br />
+                </th>
+                <th class="col-xs-4"
+                    <p>Invoice No: @Model.InvoicePrint.invoiceNo</p>
+                    <p>Invoice Date: @Model.InvoicePrint.invoiceDate</p>
+                    <p>Invoice Time: @Model.InvoicePrint.invoiceTime</p>
+                    <p>Rep. : @Model.InvoicePrint.rep</p>
+                    <p>Due Date : @Model.InvoicePrint.dueDate</p>
+                    <p>User : @Model.InvoicePrint.userID</p>
+                </th>
+            </tr>
+        </table>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SlNo</th>
+                        <th>Product</th>
+                        <th>Inventory ID</th>
+                        <th>Quantity</th>
+                        <th>Free</th>
+                        <th>MRP</th>
+                        <th>VAT</th>
+                        <th>Discount</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                @{ int counter = 0;}
+                <tbody>
+    @foreach (MedicalBilling.ViewModel.InvoiceItemWithPrice item in Model.InvoicePrint.items)
+    {
+        counter += 1;
+        <tr>
+            <td>@counter</td>
+            <td>@item.InvoiceItem.Product.name</td>
+            <td>@item.InvoiceItem.Inventory.batchNo</td>
+            <td>@item.InvoiceItem.quantity</td>
+            <td>@item.InvoiceItem.free</td>
+            <td>@item.mrp</td>
+            <td>@item.vat</td>
+            <td>@item.discount</td>
+            <td class="price">@item.price</td>
+        </tr>
+    }
+                    <tr>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td style="text-align:right;"><b>Total:</b></td>
+                        <td><span id="total"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <script>
+    $(document).ready(function () {
+        var sum = 0;
+        $('.price').each(function () {debugger
+            sum += parseFloat($(this).text());  // Or this.innerHTML, this.innerText
+            debugger
+        });
+        document.getElementById("total").innerHTML = sum;
+    });
+
+            </script>
+        </div>
+    </div>
+</body>
+</html>

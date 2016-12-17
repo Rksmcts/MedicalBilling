@@ -2,7 +2,7 @@
 
 @using (Html.BeginForm("AddItem","Billing",FormMethod.Post))
 {
-    <p>Add new item</p>
+    <h3>Add a new item</h3>
     <div class="container">
         <form>
             <input value=@Model.Invoice.id name="InvoiceItem.invoiceId" style="display:none"/>
