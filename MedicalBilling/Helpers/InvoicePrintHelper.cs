@@ -24,7 +24,7 @@ namespace MedicalBilling.Helpers
                 item.mrp = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.mrp).First();
                 item.vat = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.vat).First();
                 item.discount = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.discount).First();
-                decimal afterVat = (decimal)item.mrp - (((item.vat / 100)) * item.mrp);
+                decimal afterVat = (decimal)item.mrp + (((item.vat / 100)) * item.mrp);
                 decimal afterDiscount = (decimal)afterVat - (((item.vat / 100)) * afterVat);
                 item.price = Math.Round(afterDiscount,2);
                 InvoiceItemWithPrice.Add(item);

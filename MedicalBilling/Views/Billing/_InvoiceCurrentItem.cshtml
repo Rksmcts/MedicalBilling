@@ -5,7 +5,7 @@
         <tr>
             <th>SlNo</th>
             <th>Product</th>
-            <th>Inventory ID</th>
+            <th>Batch#</th>
             <th>Quantity</th>
             <th>Free</th>
             <th>MRP</th>
@@ -29,6 +29,7 @@
                 <td>@item.vat</td>
                 <td>@item.discount</td>
                 <td class="price">@item.price</td>
+                <td>@Html.ActionLink("Delete", "DeleteItem", new { id=@item.InvoiceItem.id}, new { @class = "btn btn-danger" })</td>
             </tr>
         }
         <tr>

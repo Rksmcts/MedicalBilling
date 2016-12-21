@@ -76,7 +76,7 @@ namespace MedicalBilling.Controllers
                 item.mrp =(decimal) db.Products.Where(x => x.pid == i.pid).Select(x=>x.mrp).First();
                 item.vat = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.vat).First();
                 item.discount = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.discount).First();
-                decimal afterVat = (decimal)item.mrp - (((item.vat / 100)) * item.mrp);
+                decimal afterVat = (decimal)item.mrp + (((item.vat / 100)) * item.mrp);
                 decimal afterDiscount= (decimal)(afterVat - (((item.vat / 100)) * afterVat))*(decimal)(item.InvoiceItem.quantity-item.InvoiceItem.free);
                 //item.price = (decimal)item.mrp * (item.vat / 100) * (item.discount / 100);
                 item.price = afterDiscount;
@@ -115,6 +115,20 @@ namespace MedicalBilling.Controllers
             db.SaveChanges();
             //return PartialView("_InvoiceAddItem", mdl);
             return RedirectToAction("GenerateInvoice",new { id= mdl.InvoiceItem.invoiceId });
+        }
+
+        public ActionResult DeleteItem(int id)
+        {
+            BillingViewModel mdl = new BillingViewModel();
+            InvoiceItem i = db.InvoiceItems.Find(id);
+            int invoiceId = (int)i.invoiceId;
+            Inventory inv = db.Inventories.SingleOrDefault(x=>x.iid==i.iid);
+            inv.quantity += i.quantity;
+            db.InvoiceItems.Remove(i);
+            db.SaveChanges();
+
+
+            return RedirectToAction("GenerateInvoice", new { id = invoiceId });
         }
 
         //Generate_Invoice_END
