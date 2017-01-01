@@ -12,18 +12,21 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.fname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.mname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dob)
-        </th>
+        <th>Name</th>
+        @*
+    <th>
+        @Html.DisplayNameFor(model => model.fname)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.mname)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.lname)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.dob)
+    </th>
+        *@
         <th>
             @Html.DisplayNameFor(model => model.phone)
         </th>
@@ -45,9 +48,11 @@
         <th>
             @Html.DisplayNameFor(model => model.tinNo)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender1.value)
-        </th>
+        @*
+    <th>
+        @Html.DisplayNameFor(model => model.Gender1.value)
+    </th>
+        *@
         <th></th>
     </tr>
 
@@ -56,15 +61,17 @@
         <td>
             @Html.DisplayFor(modelItem => item.fname)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.mname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dob)
-        </td>
+        @*
+    <td>
+        @Html.DisplayFor(modelItem => item.mname)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.lname)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.dob)
+    </td>
+        *@
         <td>
             @Html.DisplayFor(modelItem => item.phone)
         </td>
@@ -86,9 +93,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.tinNo)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender1.value)
-        </td>
+        @*
+    <td>
+        @Html.DisplayFor(modelItem => item.Gender1.value)
+    </td>
+        *@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.cid }, new { @class = "btn btn-warning btn-sm" })@* |
     @Html.ActionLink("Details", "Details", new { id=item.cid }) |*@

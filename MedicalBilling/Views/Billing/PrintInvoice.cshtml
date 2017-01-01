@@ -47,7 +47,7 @@
                     D.L. No.: @Model.InvoicePrint.toDL_No<br />
                     TIN No.: @Model.InvoicePrint.toTIN_No<br />
                 </th>
-                <th class="col-xs-4"
+                <th class="col-xs-4">
                     <p>Invoice No: @Model.InvoicePrint.invoiceNo</p>
                     <p>Invoice Date: @Model.InvoicePrint.invoiceDate</p>
                     <p>Invoice Time: @Model.InvoicePrint.invoiceTime</p>
@@ -61,15 +61,29 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>SlNo</th>
-                        <th>Product</th>
-                        <th>Batch#</th>
-                        <th>Quantity</th>
+                        @*
+            <th>SlNo</th>
+            <th>Product</th>
+            <th>Batch#</th>
+            <th>Quantity</th>
+            <th>Free</th>
+            <th>MRP</th>
+            <th>VAT</th>
+            <th>Discount</th>
+            <th>Price</th>
+                        *@
+                        <th>MFG</th>
+                        <th>QTY</th>
                         <th>Free</th>
+                        <th>PKG</th>
+                        <th>Description</th>
+                        <th>Batch#</th>
+                        <th>Exp. Date</th>
                         <th>MRP</th>
-                        <th>VAT</th>
-                        <th>Discount</th>
-                        <th>Price</th>
+                        <th>Rate</th>
+                        <th>VAT%</th>
+                        <th>DIS%</th>
+                        <th>Amount</th>
                     </tr>
                 </thead>
                 @{ int counter = 0;}
@@ -78,26 +92,165 @@
     {
         counter += 1;
         <tr>
-            <td>@counter</td>
-            <td>@item.InvoiceItem.Product.name</td>
-            <td>@item.InvoiceItem.Inventory.batchNo</td>
+            @*
+                <td>@counter</td>
+                <td>@item.InvoiceItem.Product.name</td>
+                <td>@item.InvoiceItem.Inventory.batchNo</td>
+                <td>@item.InvoiceItem.quantity</td>
+                <td>@item.InvoiceItem.free</td>
+                <td>@item.mrp</td>
+                <td>@item.vat</td>
+                <td>@item.discount</td>
+                <td>@item.price</td>
+            *@
+            <td>@item.InvoiceItem.Product.Manufacturer.name</td>
             <td>@item.InvoiceItem.quantity</td>
             <td>@item.InvoiceItem.free</td>
+            <td>@item.InvoiceItem.Product.weight</td>
+            <td>@item.InvoiceItem.Product.name</td>
+            <td>@item.InvoiceItem.Inventory.batchNo</td>
+            <td>@item.InvoiceItem.Inventory.exDate</td>
             <td>@item.mrp</td>
+            <td class="rate">@item.InvoiceItem.Product.rate</td>
             <td>@item.vat</td>
             <td>@item.discount</td>
             <td class="price">@item.price</td>
         </tr>
     }
                     <tr>
-                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                        <td style="text-align:right;"><b>Total:</b></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td style="text-align:right;"><b>Amt:</b></td>
+                        <td><span id="amtx">@Model.InvoicePrint.totalRate</span></td>
+                        <td style="text-align:right;"><b>VAT:</b></td>
+                        <td><span id="vatx">@Model.InvoicePrint.totalVat</span></td>
+                        <td style="text-align:right;"><b>Net Amt:</b></td>
                         <td><span id="total"></span></td>
                     </tr>
                 </tbody>
+            </table>     
+            <p style="text-align:center">--x----x----x----x----x----x----x----x----x----x----x----x----x----x----x----x----x----x----x----x--</p>    
+        </div>
+    </div>
+    <!--Acknowledgement-->
+    <div class="container ltBlue">
+        <div class="row">
+            <h3 style="text-align:center">INVOICE ACKNOWLEDGEMENT</h3>
+        </div>
+        <table class="table table-striped ltBlue">
+            <tr>
+                <th class="col-xs-4">
+                    @Model.InvoicePrint.fromName<br />
+                    @Model.InvoicePrint.fromAddress<br />
+                    Phone: @Model.InvoicePrint.fromPhone<br />
+                    D.L. No.: @Model.InvoicePrint.fromDL_No<br />
+                    TIN No.: @Model.InvoicePrint.fromTIN_No<br />
+                </th>
+                <th class="col-xs-4">
+                    To, @Model.InvoicePrint.toName<br />
+                    @Model.InvoicePrint.toAddress<br />
+                    Phone: @Model.InvoicePrint.toPhone<br />
+                    D.L. No.: @Model.InvoicePrint.toDL_No<br />
+                    TIN No.: @Model.InvoicePrint.toTIN_No<br />
+                </th>
+                <th class="col-xs-4">
+                    <p>Invoice No: @Model.InvoicePrint.invoiceNo</p>
+                    <p>Invoice Date: @Model.InvoicePrint.invoiceDate</p>
+                    <p>Invoice Time: @Model.InvoicePrint.invoiceTime</p>
+                    <p>Rep. : @Model.InvoicePrint.rep</p>
+                    <p>Due Date : @Model.InvoicePrint.dueDate</p>
+                    <p>User : @Model.InvoicePrint.userID</p>
+                </th>
+            </tr>
+        </table>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        @*
+    <th>SlNo</th>
+    <th>Product</th>
+    <th>Batch#</th>
+    <th>Quantity</th>
+    <th>Free</th>
+    <th>MRP</th>
+    <th>VAT</th>
+    <th>Discount</th>
+    <th>Price</th>
+                        *@
+                        <th>MFG</th>
+                        <th>QTY</th>
+                        <th>Free</th>
+                        <th>PKG</th>
+                        <th>Description</th>
+                        <th>Batch#</th>
+                        <th>Exp. Date</th>
+                        <th>MRP</th>
+                        <th>Rate</th>
+                        <th>VAT%</th>
+                        <th>DIS%</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                @{ counter = 0;}
+                <tbody>
+                    @foreach (MedicalBilling.ViewModel.InvoiceItemWithPrice item in Model.InvoicePrint.items)
+                    {
+                        counter += 1;
+                        <tr>
+                            @*
+                            <td>@counter</td>
+                            <td>@item.InvoiceItem.Product.name</td>
+                            <td>@item.InvoiceItem.Inventory.batchNo</td>
+                            <td>@item.InvoiceItem.quantity</td>
+                            <td>@item.InvoiceItem.free</td>
+                            <td>@item.mrp</td>
+                            <td>@item.vat</td>
+                            <td>@item.discount</td>
+                            <td>@item.price</td>
+                                *@
+                            <td>@item.InvoiceItem.Product.Manufacturer.name</td>
+                            <td>@item.InvoiceItem.quantity</td>
+                            <td>@item.InvoiceItem.free</td>
+                            <td>@item.InvoiceItem.Product.weight</td>
+                            <td>@item.InvoiceItem.Product.name</td>
+                            <td>@item.InvoiceItem.Inventory.batchNo</td>
+                            <td>@item.InvoiceItem.Inventory.exDate</td>
+                            <td>@item.mrp</td>
+                            <td>@item.InvoiceItem.Product.rate</td>
+                            <td>@item.vat</td>
+                            <td>@item.discount</td>
+                            <td>@item.price</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align:right;"><b>Amt:</b></td>
+                        <td><span id="amtx">@Model.InvoicePrint.totalRate</span></td>
+                        <td style="text-align:right;"><b>VAT:</b></td>
+                        <td><span id="vatx">@Model.InvoicePrint.totalVat</span></td>
+                        <td style="text-align:right;"><b>Net Amt:</b></td>
+                        <td><span id="total1"></span></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><b>Signature: </b></td>
+                    </tr>
+                </tbody>
             </table>
-
-            <script>
+        </div>
+    </div>
+    <script>
     $(document).ready(function () {
         var sum = 0;
         $('.price').each(function () {debugger
@@ -105,10 +258,23 @@
             debugger
         });
         document.getElementById("total").innerHTML = sum;
+        document.getElementById("total1").innerHTML = sum;
+
+        var rate = 0;
+        $('.rate').each(function () {
+            debugger
+            rate += parseFloat($(this).text());  // Or this.innerHTML, this.innerText
+            debugger
+        });
+
+        var vat = sum - rate;
+        document.getElementById("amt").innerHTML = rate;
+        document.getElementById("vat").innerHTML = vat;
+        document.getElementById("amt1").innerHTML = rate;
+        document.getElementById("vat1").innerHTML = vat;
+
     });
 
-            </script>
-        </div>
-    </div>
+    </script>
 </body>
 </html>

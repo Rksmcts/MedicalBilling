@@ -6,6 +6,11 @@
     <title>@ViewBag.Title - Medical Billing</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .error {
+    color: #ff0000;
+  }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -52,6 +57,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

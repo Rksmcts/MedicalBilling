@@ -3,15 +3,28 @@
 <table class="table">
     <thead>
         <tr>
-            <th>SlNo</th>
-            <th>Product</th>
-            <th>Batch#</th>
-            <th>Quantity</th>
+            @*<th>SlNo</th>
+    <th>Product</th>
+    <th>Batch#</th>
+    <th>Quantity</th>
+    <th>Free</th>
+    <th>MRP</th>
+    <th>VAT</th>
+    <th>Discount</th>
+    <th>Price</th>
+            *@
+            <th>MFG</th>
+            <th>QTY</th>
             <th>Free</th>
+            <th>PKG</th>
+            <th>Description</th>
+            <th>Batch#</th>
+            <th>Exp. Date</th>
             <th>MRP</th>
-            <th>VAT</th>
-            <th>Discount</th>
-            <th>Price</th>
+            <th>Rate</th>
+            <th>VAT%</th>
+            <th>DIS%</th>
+            <th>Amount</th>
         </tr>
     </thead>
     @{ int counter = 0;}
@@ -20,12 +33,26 @@
         {
             counter+= 1;
             <tr>
-                <td>@counter</td>
-                <td>@item.InvoiceItem.Product.name</td>
-                <td>@item.InvoiceItem.Inventory.batchNo</td>
+                @*
+    <td>@counter</td>
+    <td>@item.InvoiceItem.Product.name</td>
+    <td>@item.InvoiceItem.Inventory.batchNo</td>
+    <td>@item.InvoiceItem.quantity</td>
+    <td>@item.InvoiceItem.free</td>
+    <td>@item.mrp</td>
+    <td>@item.vat</td>
+    <td>@item.discount</td>
+    <td class="price">@item.price</td>
+                *@
+                <td>@item.InvoiceItem.Product.Manufacturer.name</td>
                 <td>@item.InvoiceItem.quantity</td>
                 <td>@item.InvoiceItem.free</td>
+                <td>@item.InvoiceItem.Product.weight</td>
+                <td>@item.InvoiceItem.Product.name</td>
+                <td>@item.InvoiceItem.Inventory.batchNo</td>
+                <td>@item.InvoiceItem.Inventory.exDate</td>
                 <td>@item.mrp</td>
+                <td>@item.InvoiceItem.Product.rate</td>
                 <td>@item.vat</td>
                 <td>@item.discount</td>
                 <td class="price">@item.price</td>

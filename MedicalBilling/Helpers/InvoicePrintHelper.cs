@@ -24,9 +24,11 @@ namespace MedicalBilling.Helpers
                 item.mrp = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.mrp).First();
                 item.vat = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.vat).First();
                 item.discount = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.discount).First();
-                decimal afterVat = (decimal)item.mrp + (((item.vat / 100)) * item.mrp);
-                decimal afterDiscount = (decimal)afterVat - (((item.vat / 100)) * afterVat);
-                item.price = Math.Round(afterDiscount,2);
+                item.rate = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.rate).First();
+                decimal afterVat = (decimal)item.rate + (((item.vat / 100)) * item.rate);
+                decimal afterDiscount = (decimal)(afterVat - ((item.rate) * (item.discount / 100)));
+                decimal quantity = (decimal)(item.InvoiceItem.quantity - item.InvoiceItem.free);
+                item.price = Math.Round(afterDiscount*quantity,2);
                 InvoiceItemWithPrice.Add(item);
             }
             mdl.InvoicePrint.fromName="KAMAKSHI MEDICALS";
@@ -46,6 +48,10 @@ namespace MedicalBilling.Helpers
             mdl.InvoicePrint.dueDate = inv.dueDate.ToShortDateString();
             mdl.InvoicePrint.userID=u.uid;
             mdl.InvoicePrint.items=InvoiceItemWithPrice;
+            mdl.InvoicePrint.totalRate = 0;
+            mdl.InvoicePrint.totalVat = 0;
+            InvoiceItemWithPrice.ForEach(i=> { mdl.InvoicePrint.totalRate += (decimal) (i.rate*(i.InvoiceItem.quantity-i.InvoiceItem.free));}); 
+            InvoiceItemWithPrice.ForEach(i => { mdl.InvoicePrint.totalVat += Math.Round((decimal)(i.rate * i.vat* (i.InvoiceItem.quantity - i.InvoiceItem.free)) /100, 2); });
             return mdl;
         }
     }

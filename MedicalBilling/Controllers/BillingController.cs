@@ -76,10 +76,13 @@ namespace MedicalBilling.Controllers
                 item.mrp =(decimal) db.Products.Where(x => x.pid == i.pid).Select(x=>x.mrp).First();
                 item.vat = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.vat).First();
                 item.discount = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.discount).First();
-                decimal afterVat = (decimal)item.mrp + (((item.vat / 100)) * item.mrp);
-                decimal afterDiscount= (decimal)(afterVat - (((item.vat / 100)) * afterVat))*(decimal)(item.InvoiceItem.quantity-item.InvoiceItem.free);
+                decimal rate= (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.rate).First();
+                decimal afterVat = (decimal)rate + (((item.vat / 100)) * rate);
+                //decimal afterDiscount= (decimal)(afterVat - (((item.vat / 100)) * afterVat))*(decimal)(item.InvoiceItem.quantity-item.InvoiceItem.free);
+                decimal afterDiscount = (decimal)(afterVat - ((rate) * (item.discount / 100)));
+                decimal quantity=(decimal) (item.InvoiceItem.quantity - item.InvoiceItem.free);
                 //item.price = (decimal)item.mrp * (item.vat / 100) * (item.discount / 100);
-                item.price = afterDiscount;
+                item.price = afterDiscount*quantity;
                 InvoiceItemWithPrice.Add(item);
             }
             mdl.InvoiceItemsWithPrice = InvoiceItemWithPrice;

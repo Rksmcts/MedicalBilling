@@ -12,38 +12,40 @@
     <h4>Customer</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.fname)
-        </dt>
-
+        <dt>Name</dt>
+        @*
+    <dt>
+        @Html.DisplayNameFor(model => model.fname)
+    </dt>
+        *@
         <dd>
             @Html.DisplayFor(model => model.fname)
         </dd>
+        @*
+    <dt>
+        @Html.DisplayNameFor(model => model.mname)
+    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.mname)
-        </dt>
+    <dd>
+        @Html.DisplayFor(model => model.mname)
+    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.mname)
-        </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.lname)
+    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.lname)
-        </dt>
+    <dd>
+        @Html.DisplayFor(model => model.lname)
+    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.lname)
-        </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.dob)
+    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.dob)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dob)
-        </dd>
-
+    <dd>
+        @Html.DisplayFor(model => model.dob)
+    </dd>
+        *@
         <dt>
             @Html.DisplayNameFor(model => model.phone)
         </dt>
@@ -99,15 +101,15 @@
         <dd>
             @Html.DisplayFor(model => model.tinNo)
         </dd>
+        @*
+    <dt>
+        @Html.DisplayNameFor(model => model.Gender1.value)
+    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender1.value)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gender1.value)
-        </dd>
-
+    <dd>
+        @Html.DisplayFor(model => model.Gender1.value)
+    </dd>
+        *@
     </dl>
 
     @using (Html.BeginForm()) {

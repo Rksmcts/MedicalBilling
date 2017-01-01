@@ -49,6 +49,7 @@ namespace MedicalBilling.ViewModel
         public int quantity;
         public int free;
         public decimal mrp;
+        public decimal rate;
         public decimal vat;
         public decimal discount;
         public decimal price;
@@ -73,6 +74,8 @@ namespace MedicalBilling.ViewModel
         public string dueDate;
         public int userID;
         public List<InvoiceItemWithPrice> items;
+        public decimal totalRate;
+        public decimal totalVat;
     }
 
 }
