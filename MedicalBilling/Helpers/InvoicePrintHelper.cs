@@ -29,12 +29,14 @@ namespace MedicalBilling.Helpers
                 decimal afterDiscount = (decimal)(afterVat - ((item.rate) * (item.discount / 100)));
                 decimal quantity = (decimal)(item.InvoiceItem.quantity - item.InvoiceItem.free);
                 item.price = Math.Round(afterDiscount*quantity,2);
+                //DateTime exDate= (DateTime)db.Inventories.Where(x => x.iid == i.iid).Select(x => x.exDate).First();
+                //item.InvoiceItem.Inventory.exDate = exDate.Date;
                 InvoiceItemWithPrice.Add(item);
             }
-            mdl.InvoicePrint.fromName="KAMAKSHI MEDICALS";
-            mdl.InvoicePrint.fromAddress="154/3, Nehru Road, Kamanahalli, Thomastown, Banglaore-560084";
+            mdl.InvoicePrint.fromName="KAMAKSHI DISTRIBUTORS";
+            mdl.InvoicePrint.fromAddress="Old No.154/3 / New No.43/3, Nehru Road, Kammanahalli, St Thomas Town, Banglaore-560084";
             mdl.InvoicePrint.fromPhone="";
-            mdl.InvoicePrint.fromDL_No="1017";
+            mdl.InvoicePrint.fromDL_No="KA-B52-150687/150688";
             mdl.InvoicePrint.fromTIN_No="29420383707";
             mdl.InvoicePrint.toName=c.fname+" "+c.mname+" "+c.lname;
             mdl.InvoicePrint.toAddress=c.address;
@@ -42,10 +44,10 @@ namespace MedicalBilling.Helpers
             mdl.InvoicePrint.toDL_No=c.dlNo;
             mdl.InvoicePrint.toTIN_No=c.tinNo;
             mdl.InvoicePrint.invoiceNo=id;
-            mdl.InvoicePrint.invoiceDate = inv.date.ToShortDateString();
+            mdl.InvoicePrint.invoiceDate = inv.date.ToString("dd/MM/yyyy");
             mdl.InvoicePrint.invoiceTime = inv.date.ToShortTimeString();
             mdl.InvoicePrint.rep=u.name;
-            mdl.InvoicePrint.dueDate = inv.dueDate.ToShortDateString();
+            mdl.InvoicePrint.dueDate = inv.dueDate.ToString("dd/MM/yyyy");
             mdl.InvoicePrint.userID=u.uid;
             mdl.InvoicePrint.items=InvoiceItemWithPrice;
             mdl.InvoicePrint.totalRate = 0;
