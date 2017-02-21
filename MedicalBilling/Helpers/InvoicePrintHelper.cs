@@ -27,8 +27,8 @@ namespace MedicalBilling.Helpers
                 item.rate = (decimal)db.Products.Where(x => x.pid == i.pid).Select(x => x.rate).First();
                 decimal afterVat = (decimal)item.rate + (((item.vat / 100)) * item.rate);
                 decimal afterDiscount = (decimal)(afterVat - ((item.rate) * (item.discount / 100)));
-                decimal quantity = (decimal)(item.InvoiceItem.quantity - item.InvoiceItem.free);
-                item.price = Math.Round(afterDiscount*quantity,2);
+                //decimal quantity = (decimal)(item.InvoiceItem.quantity - item.InvoiceItem.free);
+                item.price = Math.Round(afterDiscount* (decimal)item.InvoiceItem.quantity, 2);
                 //DateTime exDate= (DateTime)db.Inventories.Where(x => x.iid == i.iid).Select(x => x.exDate).First();
                 //item.InvoiceItem.Inventory.exDate = exDate.Date;
                 InvoiceItemWithPrice.Add(item);
@@ -52,8 +52,8 @@ namespace MedicalBilling.Helpers
             mdl.InvoicePrint.items=InvoiceItemWithPrice;
             mdl.InvoicePrint.totalRate = 0;
             mdl.InvoicePrint.totalVat = 0;
-            InvoiceItemWithPrice.ForEach(i=> { mdl.InvoicePrint.totalRate += (decimal) (i.rate*(i.InvoiceItem.quantity-i.InvoiceItem.free));}); 
-            InvoiceItemWithPrice.ForEach(i => { mdl.InvoicePrint.totalVat += Math.Round((decimal)(i.rate * i.vat* (i.InvoiceItem.quantity - i.InvoiceItem.free)) /100, 2); });
+            InvoiceItemWithPrice.ForEach(i=> { mdl.InvoicePrint.totalRate += (decimal) (i.rate*(i.InvoiceItem.quantity));}); //-i.InvoiceItem.free
+            InvoiceItemWithPrice.ForEach(i => { mdl.InvoicePrint.totalVat += Math.Round((decimal)(i.rate * i.vat* (i.InvoiceItem.quantity)) /100, 2); });// - i.InvoiceItem.free
             return mdl;
         }
     }

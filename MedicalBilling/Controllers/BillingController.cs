@@ -80,9 +80,9 @@ namespace MedicalBilling.Controllers
                 decimal afterVat = (decimal)rate + (((item.vat / 100)) * rate);
                 //decimal afterDiscount= (decimal)(afterVat - (((item.vat / 100)) * afterVat))*(decimal)(item.InvoiceItem.quantity-item.InvoiceItem.free);
                 decimal afterDiscount = (decimal)(afterVat - ((rate) * (item.discount / 100)));
-                decimal quantity=(decimal) (item.InvoiceItem.quantity - item.InvoiceItem.free);
+                //decimal quantity=(decimal) (item.InvoiceItem.quantity - item.InvoiceItem.free);
                 //item.price = (decimal)item.mrp * (item.vat / 100) * (item.discount / 100);
-                item.price = afterDiscount*quantity;
+                item.price = afterDiscount* (decimal)item.InvoiceItem.quantity;
                 InvoiceItemWithPrice.Add(item);
             }
             mdl.InvoiceItemsWithPrice = InvoiceItemWithPrice;

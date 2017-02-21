@@ -51,7 +51,7 @@
 
         table {
             border: solid;
-            border-color: red;
+            border-color: black;
         }
 
         tr {
@@ -90,7 +90,7 @@
                     D.L. No.: @Model.InvoicePrint.fromDL_No<br />
                     TIN No.: @Model.InvoicePrint.fromTIN_No<br />
                 </td>
-                <td class="col-xs-4">
+                <td class="col-xs-4 mycontent-left">
                     <!-- mycontent-left-->
                     To, <b>@Model.InvoicePrint.toName</b><br />
                     @Model.InvoicePrint.toAddress<br />
@@ -98,7 +98,7 @@
                     D.L. No.: @Model.InvoicePrint.toDL_No<br />
                     TIN No.: @Model.InvoicePrint.toTIN_No<br />
                 </td>
-                <td class="col-xs-4">
+                <td class="col-xs-4 mycontent-left">
                     <p>Invoice No: @Model.InvoicePrint.invoiceNo</p>
                     <p>Invoice Date: @Model.InvoicePrint.invoiceDate</p>
                     <p>Invoice Time: @Model.InvoicePrint.invoiceTime</p>
@@ -190,6 +190,7 @@
                 </table>
             </div>
         </div>
+        <!--
         <div class="row">
             <div class="col-md-6"></div>
             <div class="col-md-2">
@@ -203,9 +204,24 @@
             </div>
             <div class="col-md-2">
                 <b>Amount:</b>
-                <span id="total"></span>
+                <span id="totalzzz"></span>
             </div>
         </div>
+        -->
+            <table style="margin-right:50px;border-color:white;border-collapse:collapse;" align="right">
+                <tr>
+                    <th style="text-align:right;border:none">Sub Total: </th>
+                    <th style="border:none">@Model.InvoicePrint.totalRate</th>
+                </tr>
+                <tr>
+                    <th style="text-align:right;border:none">VAT:</th>
+                    <th style="border:none">@Model.InvoicePrint.totalVat</th>
+                </tr>
+                <tr>
+                    <th style="text-align:right;border:none">Amount:</th>
+                    <th style="border:none" id="total"></th>
+                </tr>
+            </table>
         <br />
         <!--
              <p style="text-align:center">--x----x----x----x----x----x----x----x----x----x----x----x----x----x----x----x----x----x----x----x--</p>
@@ -316,6 +332,7 @@
                 </table>
             </div>
             </div>
+        <!--
         <div class="row">
             <div class="col-md-6"></div>
             <div class="col-md-2">
@@ -331,11 +348,31 @@
                 <span id="total1"></span>
             </div>
         </div>
+        -->
+        <table style="margin-right:50px;border-color:white;border-collapse:collapse;" align="right">
+            <tr>
+                <th style="text-align:right;border:none">Sub Total: </th>
+                <th style="border:none">@Model.InvoicePrint.totalRate</th>
+            </tr>
+            <tr>
+                <th style="text-align:right;border:none">VAT:</th>
+                <th style="border:none">@Model.InvoicePrint.totalVat</th>
+            </tr>
+            <tr>
+                <th style="text-align:right;border:none">Amount:</th>
+                <th style="border:none" id="total1"></th>
+            </tr>
+            <tr>
+                <th style="text-align:right;border:none">Signature:</th>
+            </tr>
+        </table>
+        <!--
         <div class="row">
             <br />
             <div class="col-md-10"></div>
             <div class="col-md-2"><b>Signature: </b></div>
         </div>
+        -->
     </div>
     <script>
     $(document).ready(function () {
@@ -344,8 +381,8 @@
             sum += parseFloat($(this).text());  // Or this.innerHTML, this.innerText
             debugger
         });
-        document.getElementById("total").innerHTML = sum;
-        document.getElementById("total1").innerHTML = sum;
+        document.getElementById("total").innerHTML = sum.toFixed(2);
+        document.getElementById("total1").innerHTML = sum.toFixed(2);
 
         var rate = 0;
         $('.rate').each(function () {
